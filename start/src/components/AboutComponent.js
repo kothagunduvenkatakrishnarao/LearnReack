@@ -1,27 +1,32 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import {baseUrl} from '../shared/baseUrl';
+import { Fade, Stagger } from 'react-animation-components';
 
 function RenderLeader({ leader }) {
     return (
-        <Media tag="li" key={leader.id} className="col-12 mt-5" >
-            <Media object src={leader.image} alt={leader.name} />
-            <Media body className="ml-5">
-                <Media heading>{leader.name}</Media>
-                <p className="d-none d-md-block">{leader.designation}</p>
-                <p className="d-none d-md-block">{leader.description}</p>
+        <Fade in>
+            <Media tag="li" key={leader.id} className="col-12 mt-5" >
+                <Media object src={baseUrl+leader.image} alt={leader.name} />
+                <Media body className="ml-5">
+                    <Media heading>{leader.name}</Media>
+                    <p className="d-none d-md-block">{leader.designation}</p>
+                    <p className="d-none d-md-block">{leader.description}</p>
+                </Media>
             </Media>
-        </Media>
+        </Fade>
     );
 }
 function About(props) {
-
-    const leaders = props.leaders.map((leader) => {
+    const leaders = props.leaders.leaders.map((leader) => {
         return (
-            <RenderLeader key={leader.id} leader={leader} />
+            <Stagger in>
+                <RenderLeader key={leader.id} leader={leader} />
+            </Stagger>
         );
+        
     });
-
     return(
         <div className="container">
             <div className="row">
